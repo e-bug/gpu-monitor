@@ -1,5 +1,20 @@
 # GPU Monitor
 
+### About this fork
+
+- Code refactored (incl. conversion of French unit symbols to International ones)
+- Two helper scripts added (see below)
+
+#### How to run
+
+- Run [start_cronjobs.sh](start_cronjobs.sh) in each GPU node.
+- Run [start_php_server.sh](start_php_server.sh) in the web host to start a PHP server for GPU usage monitoring.
+<br>
+
+Original README follows.
+
+---
+
 This is a tool intended to monitor the GPU usage on the various GPU-servers at the LIP6 Lab, UPMC, Paris. This code has been written with the "quickest and dirtiest" principle in mind, it is absolutely awful, please do not read it :persevere:
 
 The principle is as follows. A bunch of Bash / Python scripts runs regularly `nvidia-smi` and `ps` to extract data and sends them to my `public_html` space. Each time someone wants to see the status of the GPUs, the page `index.php` reads the latest data files for each server and displays those.
