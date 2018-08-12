@@ -62,7 +62,7 @@
 <?php } ?>
 
         <div class="page-header">
-            <h1>GPU Status <small class="hidden-xs">(Refreshed every 30 seconds)</small><a href="https://github.com/ThomasRobertFr/gpu-monitor" style="float:right"><img src="css/gh.png" height="20px"></a></h1>
+            <h1>GPU Status <small class="hidden-xs">(Refreshed every 30 seconds)</small><a href="https://github.com/e-bug/gpu-monitor" style="float:right"><img src="css/gh.png" height="20px"></a></h1>
         </div>
 
 <?php
@@ -215,7 +215,7 @@ foreach ($HOSTS as $hostname => $hosttitle) {
     $deltaTSec = (strtotime($time) - time());
     $deltaT = abs($deltaTSec);
     $deltaTUnit = 's';
-    $deltaTDirection = ($deltaTSec <= 0) ? ' ago' : 'in the future';
+    $deltaTDirection = ($deltaTSec <= 0) ? ' ago' : ' in the future';
     if ($deltaT >= 60) {
         $deltaT = $deltaT / 60;
         $deltaTUnit = ' min';
@@ -251,7 +251,7 @@ foreach ($HOSTS as $hostname => $hosttitle) {
                 if ($ram["usage"] > 35) $bar_status = "warning";
                 if ($ram["usage"] > 70) $bar_status = "danger";
                 ?>
-                <div class="progress progress-<?php echo $bar_status ?>" data-toggle="tooltip" data-placement="top" title="<?php printf("%d/%d Go", $ram['used'], $ram['total']); ?>">
+                <div class="progress progress-<?php echo $bar_status ?>" data-toggle="tooltip" data-placement="top" title="<?php printf("%d/%d GB", $ram['used'], $ram['total']); ?>">
                     <div class="progress-bar progress-bar-<?php echo $bar_status ?>" role="progressbar" aria-valuenow="<?php echo $ram["usage"] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $ram["usage"] ?>%">
                         <?php echo $ram["usage"] ?>%
                     </div>
@@ -275,7 +275,7 @@ foreach ($HOSTS as $hostname => $hosttitle) {
                 if ($disk["usage"] > 35) $bar_status = "warning";
                 if ($disk["usage"] > 70) $bar_status = "danger";
                 ?>
-                <div class="progress progress-<?php echo $bar_status ?>" data-toggle="tooltip" data-placement="top" title="<?php printf("%d/%d Go", $disk['used'], $disk['total']); ?>">
+                <div class="progress progress-<?php echo $bar_status ?>" data-toggle="tooltip" data-placement="top" title="<?php printf("%d/%d GB", $disk['used'], $disk['total']); ?>">
                     <div class="progress-bar progress-bar-<?php echo $bar_status ?>" role="progressbar" aria-valuenow="<?php echo $disk["usage"] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $disk["usage"] ?>%">
                         <?php echo $disk["usage"] ?>%
                     </div>
@@ -300,7 +300,7 @@ foreach ($HOSTS as $hostname => $hosttitle) {
             <td>
                 <span class="hidden-xs"><?php echo $SHORT_GPU_NAMES[$gpu['name']] ? '<span data-toggle="tooltip" title="'.$gpu['name'].'">'.$SHORT_GPU_NAMES[$gpu['name']].'</span>' : $gpu['name']; ?></span>
                 <span class="visible-xs-inline"><?php echo $SHORTER_GPU_NAMES[$gpu['name']] ? '<span data-toggle="tooltip" title="'.$gpu['name'].'">'.$SHORTER_GPU_NAMES[$gpu['name']].'</span>' : $gpu['name']; ?></span>
-                (<?php echo round($gpu['memory.total'] / 1000) ?> Go)
+                (<?php echo round($gpu['memory.total'] / 1000) ?> GB)
             </td>
             <td>
                 <?php
@@ -308,7 +308,7 @@ foreach ($HOSTS as $hostname => $hosttitle) {
                 if ($gpu['memory'] > 20) $bar_status = "warning";
                 if ($gpu['memory'] > 60) $bar_status = "danger";
                 ?>
-                <div class="progress progress-<?php echo $bar_status ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $gpu['memory.used'].'/'.$gpu['memory.total']; ?> Mo / Access rate: <?php echo $gpu["utilization.memory"] ?>%">
+                <div class="progress progress-<?php echo $bar_status ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $gpu['memory.used'].'/'.$gpu['memory.total']; ?> MB / Access rate: <?php echo $gpu["utilization.memory"] ?>%">
                     <div class="progress-bar progress-bar-<?php echo $bar_status ?>" role="progressbar" aria-valuenow="<?php echo $gpu['memory'] ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $gpu['memory'] ?>%">
                         <?php echo $gpu['memory'] ?>%
                     </div>
@@ -362,7 +362,7 @@ foreach ($HOSTS as $hostname => $hosttitle) {
                     if ($process["usage"] > 40) $process_status = "primary";
                     if ($process["alert"] !== false) $process_status = "danger";
                     ?>
-                    <span class="process label label-<?php echo $process_status ?>" data-toggle="tooltip" data-placement="top" title="<?php if ($process["alert"]) echo $process["alert"]; ?> <?php echo $process['process_name'] ?> (Mem: <?php echo $process['used_gpu_memory'] ?> Mo) / Started: <?php echo $process['time'] ?>"><?php echo $process["pid"].'@<span class="user">'.$process["user"] ?></span> (<?php echo $process["usage"] ?>%)</span>
+                    <span class="process label label-<?php echo $process_status ?>" data-toggle="tooltip" data-placement="top" title="<?php if ($process["alert"]) echo $process["alert"]; ?> <?php echo $process['process_name'] ?> (Mem: <?php echo $process['used_gpu_memory'] ?> MB) / Started: <?php echo $process['time'] ?>"><?php echo $process["pid"].'@<span class="user">'.$process["user"] ?></span> (<?php echo $process["usage"] ?>%)</span>
                 <?php } ?>
                 </span>
                 <span class="visible-xs-inline">

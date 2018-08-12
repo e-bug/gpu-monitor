@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# $1 : anything or "kill" to kill the monitoring processes
+# $2 (optional): "username@host:" -- username and address to webserver host
+
+SCRIPTS_PATH=/home/ema/gpu-monitor/scripts
+
 if [ "$1" = "kill" ]; then
 	pid=`ps -x | grep 'gpu-run.s[h] 1' | sed 's/\([0-9]\+\)\s.\+$/\1/'`
 	if [ "${pid:-null}" != null ]; then
@@ -25,7 +30,7 @@ else
 
 	if [ "${RESULT:-null}" = null ]; then
 		echo "Launch"
-		HOST=$1 /home/robert/gpuMonitor/gpu-run.sh 1 &
+		${SCRIPTS_PATH}/gpu-run.sh 1 &
 	else
 		echo "Running"
 	fi
@@ -34,7 +39,7 @@ else
 
 	if [ "${RESULT:-null}" = null ]; then
 		echo "Launch"
-		HOST=$1 /home/robert/gpuMonitor/gpu-run.sh 2 &
+		${SCRIPTS_PATH}/gpu-run.sh 2 &
 	else
 		echo "Running"
 	fi
@@ -43,7 +48,7 @@ else
 
 	if [ "${RESULT:-null}" = null ]; then
 		echo "Launch"
-		HOST=$1 /home/robert/gpuMonitor/gpu-run.sh 3 $2 &
+		${SCRIPTS_PATH}/gpu-run.sh 3 $2 &
 	else
 		echo "Running"
 	fi
